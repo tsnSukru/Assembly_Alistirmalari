@@ -1,0 +1,36 @@
+.MODEL SMALL
+.STACK 64
+.DATA
+  MESAJ1 DB 'BILGISAYAR',0AH,0DH,'$'  
+ .CODE 
+  
+ ANA PROC FAR
+     MOV AX,@DATA
+     MOV DS,AX 
+     
+     CALL EKRSIL    
+     MOV CX,10 
+     TEKRAR: 
+     LEA DX,MESAJ1
+     CALL YAZ   
+     LOOP TEKRAR
+     MOV AH,4CH
+     INT 21H     
+ ANA ENDP
+ 
+ YAZ PROC   
+    MOV AH,09 
+    INT 21H
+    RET
+ YAZ ENDP
+ 
+ EKRSIL PROC
+    MOV AX,0600H
+    MOV BH,4FH ;RENK
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    RET
+ EKRSIL ENDP
+ 
+ END ANA
